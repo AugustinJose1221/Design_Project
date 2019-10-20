@@ -10,7 +10,7 @@ import imutils
 import time
 import dlib
 import cv2
-
+path='cat1.mp3'
 def sound_alarm(path):
 	# play an alarm sound
 	playsound.playsound(path)
@@ -31,15 +31,7 @@ def eye_aspect_ratio(eye):
 	# return the eye aspect ratio
 	return ear
  
-# construct the argument parse and parse the arguments
-ap = argparse.ArgumentParser()
-ap.add_argument("-p", "--shape-predictor", required=True,
-	help="path to facial landmark predictor")
-ap.add_argument("-a", "--alarm", type=str, default="",
-	help="path alarm .WAV file")
-ap.add_argument("-w", "--webcam", type=int, default=0,
-	help="index of webcam on system")
-args = vars(ap.parse_args())
+
  
 # define two constants, one for the eye aspect ratio to indicate
 # blink and then a second constant for the number of consecutive
@@ -57,7 +49,7 @@ ALARM_ON = False
 # the facial landmark predictor
 print("[INFO] loading facial landmark predictor...")
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor(args["shape_predictor"])
+predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
 # grab the indexes of the facial landmarks for the left and
 # right eye, respectively
@@ -66,7 +58,7 @@ predictor = dlib.shape_predictor(args["shape_predictor"])
 
 # start the video stream thread
 print("[INFO] starting video stream thread...")
-vs = VideoStream(src=args["webcam"]).start()
+vs = VideoStream(0).start()
 time.sleep(1.0)
 
 # loop over frames from the video stream
@@ -121,9 +113,9 @@ while True:
 					# check to see if an alarm file was supplied,
 					# and if so, start a thread to have the alarm
 					# sound played in the background
-					if args["alarm"] != "":
+					if path!= "":
 						t = Thread(target=sound_alarm,
-							args=(args["alarm"],))
+							args=(path,))
 						t.deamon = True
 						t.start()
 
