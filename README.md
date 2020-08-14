@@ -2,10 +2,9 @@
 
 [link to shape predictor dat file](https://github.com/AKSHAYUBHAT/TensorFace/raw/master/openface/models/dlib/shape_predictor_68_face_landmarks.dat)
 
-
+Minor Changes made
 Download the .dat file and copy it to the attention_detector folder, and run the program , using the command
 
 ```
 python att.py
 ```
-
